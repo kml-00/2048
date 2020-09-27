@@ -52,7 +52,7 @@ function addNewElement()
 
     (game[x][y]==0)? game[x][y]=2: addNewElement();   
 }
-
+// split swiping a blocks and adding blocks !!!!! IMPORTANT
 function moveRight()
 {
     for(let i=0;i<4;i++)
