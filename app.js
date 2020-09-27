@@ -1,4 +1,5 @@
 let gameBoard= document.querySelector('.game');
+document.addEventListener('keyup', control)
 let game =[
     [0,0,0,0],
     [0,0,0,0],
@@ -12,12 +13,10 @@ function generate()
     {
         for(let j=0;j<4;j++)
         {
-           
             let element =document.createElement('div')
             element.innerHTML= game[i][j];
             element.id=String(i)+String(j);
-            gameBoard.appendChild(element);
-            
+            gameBoard.appendChild(element);  
         }
     }
 }
@@ -29,13 +28,10 @@ function update()
     for(let i=0;i<4;i++)
     {
         for(let j=0;j<4;j++)
-        {
-            
+        {   
            id = String(i)+String(j);
            element = document.getElementById(id);
-           element.innerHTML=game[i][j];
-
-            
+           element.innerHTML=game[i][j];  
         }
     }
 }
@@ -55,183 +51,109 @@ function addNewElement()
 // split swiping a blocks and adding blocks !!!!! IMPORTANT
 function moveRight()
 {
-    for(let i=0;i<4;i++)
-    {
-        for(let j=0;j<4;j++)
-        {
-            
-                if(game[i][j]>0 && game[i][j+1]==0)
-                {
-                    game[i][j+1]= game[i][j];
-                    game[i][j]= 0;
-                }
-                if(game[i][j]==game[i][j+1])
-                {
-                    game[i][j+1]=game[i][j]+game[i][j+1];
-                    game[i][j]= 0;
-                }
-                if(game[i][j]>0 && game[i][j+1]>0)
-                {
-                    console.log("block 3")
-                    if(game[i][j]!=game[i][j+1] && j<2 && game[i][j+2]==0)
-                    {
-                        game[i][j+2]=game[i][j+1];
-                        game[i][j+1]=game[i][j];
-                        game[i][j]=0;
-                    }
-                }
-
-                if(game[i][j]>0 && game[i][j+1]>0 && game[i][j+2]>0)
-                {
-                    console.log("block 4")
-                    if(j<1 && game[i][j+3]==0)
-                    {
-                        game[i][j+3]=game[i][j+2];
-                        game[i][j+2]=game[i][j+1];
-                        game[i][j+1]=game[i][j];
-                        game[i][j];
-                    }
-                }
-        }
-    }
+    
+    move("right");
+    
     addNewElement();
 }
 
 function moveDown()
 {
-    for(let i=0;i<4;i++)
-    {
-        for(let j=0;j<4;j++)
-        {
-            console.log(j);
-            if(game[j][i]==game[j+1][i])
-                {
-                    game[j+1][i]=game[j][i]+game[j+1][i];
-                    game[j][i]= 0;
-                }
-                if(game[j][i]>0 && game[j+1][i]==0)
-                {
-                    game[j+1][i]= game[j][i];
-                    game[j][i]= 0;
-                }
-                
-               
-
-                if(game[j][i]>0 && game[j+1][i]>0)
-                {
-                    if(game[j][i]!=game[j+1][i] && j<2 && game[j+2][i]==0)
-                    {
-                        game[j+2][i]=game[j+1][i];
-                        game[j+1][i]=game[j][i];
-                        game[j][i]=0;
-                    }
-                }
-
-                if(j==0 &&game[j][i]>0 && game[j+1][i]>0 && game[j+2][i]>0)
-                {
-                    if(game[j+3][i]==0)
-                    {
-                        game[j+3][i]=game[j+2][i];
-                        game[j+2][i]=game[j+1][i];
-                        game[j+1][i]=game[j][i];
-                        game[j][i];
-                    }
-                }
-                
-        }
-    }
+    move("down");
     addNewElement();
 }
 
 function moveLeft()
 {
-   
-    for(let i=0;i<4;i++)
-    {
-       
-        for(let j =4;j>0;j--)
-        {
-                if(game[i][j]==game[i][j-1])
-                {
-                    game[i][j-1]=game[i][j]+game[i][j-1];
-                    game[i][j]= 0;
-                }
-                if(game[i][j]>0 && game[i][j-1]==0)
-                {
-                    game[i][j-1]= game[i][j];
-                    game[i][j]= 0;
-                }
-                if(game[i][j]>0 && game[i][j-1]>0)
-                {
-                    if(j>1 && game[i][j-2]==0)
-                    {
-                        game[i][j-2]=game[i][j-1];
-                        game[i][j-1]=game[i][j];
-                        game[i][j]=0;
-                    }
-                }
-
-                if(game[i][j]>0 && game[i][j-1]>0 && game[i][j-2]>0)
-                {
-                    if(j==3 && game[i][j-3]==0)
-                    {
-                        game[i][j-3]=game[i][j-2];
-                        game[i][j-2]=game[i][j-1];
-                        game[i][j-1]=game[i][j];
-                        game[i][j];
-                    }
-                }
-                
-        }
-            
-            
-    }
+   move("left");
+    
     addNewElement();
 }
 
 function moveUp()
 {
-    for(let i=0;i<4;i++)
-    {
-        for(let j=4;j>0;j--)
-        {
-            
-                if(game[j][i]==game[j-1][i])
-                {
-                    game[j-1][i]=game[j][i]+game[j-1][i];
-                    game[j][i]= 0;
-                }
-                if(game[j][i]>0 && game[j-1][i]==0)
-                {
-                    game[j-1][i]= game[j][i];
-                    game[j][i]= 0;
-                }
-
-                if(game[j][i]>0 && game[j-1][i]>0)
-                {
-                    if(game[j][i]!=game[j-1][i] && j>2 && game[j-2][i]==0)
-                    {
-                        game[j-2][i]=game[j-1][i];
-                        game[j-1][i]=game[j][i];
-                        game[j][i]=0;
-                    }
-                }
-
-                if(j==0 &&game[j][i]>0 && game[j-1][i]>0 && game[j-2][i]>0)
-                {
-                    if(game[j-3][i]==0)
-                    {
-                        game[j-3][i]=game[j-2][i];
-                        game[j-2][i]=game[j+1][i];
-                        game[j-1][i]=game[j][i];
-                        game[j][i];
-                    }
-                }
-                
-        }
-    }
+    move("up");
     addNewElement();
 }
+
+function move(direction)
+{
+    let col0=[];
+    let col1=[];
+    let col2=[];
+    let col3=[];
+    let columns=[];
+    let arraySize=4;
+    switch(direction)
+    {
+        case "right":
+            for(let i=0;i<4;i++)
+            {
+                let tmp=game[i].filter(item=>item>0);
+                let zeroArr = Array(arraySize-tmp.length).fill(0);
+                game[i] = zeroArr.concat(tmp);
+                console.log(game[i]);  
+                   
+            }
+            
+            break;
+        case "left":
+            for(let i=0;i<4;i++)
+            {
+                let tmp=game[i].filter(item=>item>0);
+                let zeroArr = Array(arraySize-tmp.length).fill(0);
+                game[i] = tmp.concat(zeroArr);
+                console.log(game[i]);  
+                   
+            }
+            break;
+
+        case "down":
+            
+            for(let i=0;i<4;i++)
+            {
+                col0.push(game[i][0]);
+                col1.push(game[i][1]);
+                col2.push(game[i][2]);
+                col3.push(game[i][3]);
+            }
+            columns=[col0,col1,col2,col3];
+            for(let i=0;i<4;i++)
+            {
+                let tmp=columns[i].filter(item=>item>0);
+                let zeroArr = Array(arraySize-tmp.length).fill(0);
+                columns[i] = tmp.concat(zeroArr);
+                console.log(columns[i]);  
+                   
+            }
+            break;
+        case "up":
+            
+                for(let i=3;i>=0;i--)
+                {
+                    console.log(game[i][0]);
+                    col0.push(game[i][0]);
+                    col1.push(game[i][1]);
+                    col2.push(game[i][2]);
+                    col3.push(game[i][3]);
+                }
+                columns=[col0,col1,col2,col3];
+                
+                for(let i=0;i<4;i++)
+                {
+                    let tmp=columns[i].filter(item=>item>0);
+                    let zeroArr = Array(arraySize-tmp.length).fill(0);
+                    columns[i] = zeroArr.concat(tmp);
+                    console.log(columns[i]);  
+                       
+                }
+                break;
+        
+    }
+    
+}
+
+
 
 function control(e) {
     if(e.keyCode === 37) {
@@ -244,7 +166,7 @@ function control(e) {
       keyDown()
     }
   }
-  document.addEventListener('keyup', control)
+  
   function keyRight() {
     moveRight()
     update()
@@ -268,7 +190,11 @@ function control(e) {
     update();
   }
 
+function init()
+{
+    addNewElement();
+    addNewElement();
+    generate();
+}
 
-addNewElement();
-addNewElement();
-generate();
+init();
