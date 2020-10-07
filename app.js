@@ -184,6 +184,7 @@ function sumElemnets(direction)
             }
         }
 
+        
         if(direction=="right" || direction=="down")
                     {
                         for(let j=game.length-1;j>=0;j--)

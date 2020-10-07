@@ -7,7 +7,6 @@
 To run this game on your computer you have to download the copy of this repository and run index.html. 
 
 
-
 ## Versioning
 
 I use [Github](https://github.com) for versioning. For the versions available, see the [2048](https://github.com/kml-00/2048). 
